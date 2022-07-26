@@ -34,11 +34,11 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-import DarkModeSwitcher from '../../components/dark-mode-switcher/Main.vue';
-import dom from '@left4code/tw-starter/dist/js/dom';
+import { onMounted } from "vue";
+import DarkModeSwitcher from "../../components/dark-mode-switcher/Main.vue";
+import dom from "@left4code/tw-starter/dist/js/dom";
 
 onMounted(() => {
-  dom('body').removeClass('main').removeClass('login').addClass('error-page');
+  dom("body").removeClass("main").removeClass("login").addClass("error-page");
 });
 </script>

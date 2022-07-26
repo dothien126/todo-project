@@ -5,6 +5,7 @@ import router from "./router";
 import globalComponents from "./global-components";
 import utils from "./utils";
 import "./assets/css/app.css";
+import './stores/handle/request'
 
 const app = createApp(App).use(router).use(createPinia());
 

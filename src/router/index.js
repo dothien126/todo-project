@@ -18,17 +18,17 @@ const routes = [
     component: Register,
   },
   {
-    path: '/errorPage',
+    path: '/error-page',
     name: 'errorPage',
     component: ErrorPage,
   },
   {
-    path: '/todoForm',
+    path: '/todo-form',
     name: 'todoForm',
     component: TodoForm,
   },
   {
-    path: '/todoList',
+    path: '/todo-list',
     name: 'todoList',
     component: TodoList,
   },
