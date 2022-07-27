@@ -52,9 +52,88 @@
 import { ref } from 'vue';
 
 const editorConfig = {
+  name: 'Todo-Form',
+
+  setup() {
+    const todos = ref([]);
+    const title = ref('');
+    const content = ref('');
+    const isUpdate = ref(false);
+    const todoUpdate = ref();
+    const getAllTodo = async () => {
+      try {
+        const res = await axios.get(`user/todo/:userId`);
+        console.log(res.data);
+        todos.value = res.data;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    onMounted(() => {
+      getAllTodo();
+    });
+
+    const handleAddToDo = async (event) => {
+      event.preventDefault();
+      try {
+        const addToDo = {
+          title: title.value,
+          content: content.value,
+        };
+        let user = '24124214';
+        const res = await axios.post(`/todo/create/${user}`, addToDo);
+        console.log('res', res.data);
+        title.value = '';
+        content.value = '';
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    // update todo
+    const updateTodo = async (data) => {
+      if (data) {
+        todoUpdate.value = data;
+        title.value = data.title;
+        content.value = data.content;
+        isUpdate.value = true;
+      }
+    };
+    const handleUpdate = async () => {
+      try {
+        const res = await axios.put(`/todo/update/${todoUpdate.value._id}`, {
+          title: title.value,
+          content: content.value,
+        });
+        console.log('res', res.data);
+      } catch (error) {
+        console.log(error);
+      }
+      title.value = '';
+      content.value = '';
+    };
+    // delete todo
+    const handlDelete = (id) => {
+      try {
+        const todo = axios.delete(`http://localhost:3003/api/todo/delete/${id}`);
+        console.log('todo', todo);
+        getAllTodo();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    return {
+      todos,
+      title,
+      content,
+      isUpdate,
+      todoUpdate,
+      handleAddToDo,
+      handlDelete,
+    };
+  },
   toolbar: {
     items: ['bold', 'italic', 'link'],
   },
 };
-const editorData = ref('<p>Content of the editor.</p>');
 </script>
