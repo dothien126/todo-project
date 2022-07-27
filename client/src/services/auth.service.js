@@ -5,7 +5,7 @@ import { authRequest } from '../stores/handle/request';
 //   password,
 // };
 export const requestLogin = async (username, password) => {
-  return await authRequest.post('/login', loginForm, { withCredentials: true });
+  return await authRequest.post('/login', { username, password }, { withCredentials: true });
 };
 
 // const registerForm = {
@@ -15,5 +15,5 @@ export const requestLogin = async (username, password) => {
 //   passwordConfirm,
 // };
 export const requestRegister = async (username, email, password, passwordConfirm) => {
-  return await authRequest.post('/user', registerForm);
+  return await authRequest.post('/user', { username, email, password, passwordConfirm });
 };

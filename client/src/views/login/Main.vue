@@ -114,9 +114,7 @@ export default defineComponent({
         password: password.value,
       };
 
-      const res = await axios.post('login', loginForm, {
-        header
-      });
+      const res = await axios.post('login', loginForm, {});
 
       if (res.data) {
         console.log('res: ', res.data.data.accessToken);

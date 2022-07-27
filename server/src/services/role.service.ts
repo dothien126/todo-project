@@ -1,11 +1,11 @@
 import { Role } from '../models/role.model';
 
 class RoleService {
-  async createRole(roleId: string, roleType: string, permission: string[]) {
+  async createRole(roleId: string, roleName: string, permission: string[]) {
     try {
       const role = new Role();
       role.roleId = roleId;
-      role.roleType = roleType;
+      role.roleName = roleName;
       role.permission = permission;
       await role.save();
 

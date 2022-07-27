@@ -82,6 +82,20 @@ class UserController {
       });
     }
   }
+
+  // Get all todo of user
+  async getAllTodoOfUserHandler(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const users = await UserService.getAllTodoOfUser(id);
+      return res.status(200).json(users);
+    } catch (error) {
+      return res.status(400).json({
+        success: false,
+        message: 'Oop. Getting all users failed!',
+      });
+    }
+  }
 }
 
 export default new UserController();

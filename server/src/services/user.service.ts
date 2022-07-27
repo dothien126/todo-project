@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import mongoose from 'mongoose';
 
 import { User, IUser } from '../models/user.model';
 
@@ -126,6 +127,23 @@ class UserService {
       return {
         success: false,
         message: 'Oop. This user is not exist!',
+      };
+    }
+  }
+
+  async getAllTodoOfUser(id: string) {
+    try {
+      const user = await User.findOne({ _id: new mongoose.Types.ObjectId(id) }).populate('todos');
+
+      return {
+        success: true,
+        data: user?.todos,
+        message: 'List of todo of user',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: 'User is not exist!',
       };
     }
   }

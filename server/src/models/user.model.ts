@@ -1,4 +1,5 @@
-import mongoose, { Document, Schema, model } from 'mongoose';
+import { Document, Schema, model } from 'mongoose';
+import { ITodo } from './todo.model';
 
 export interface IUser extends Document {
   username: string;
@@ -6,7 +7,7 @@ export interface IUser extends Document {
   password: string;
   role?: string;
   isActive?: boolean;
-  roleRights?: any;
+  todos: ITodo[];
 }
 
 const UserSchema = new Schema<IUser>(
@@ -36,11 +37,13 @@ const UserSchema = new Schema<IUser>(
       message: 'Username have min 5 characters!',
     },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
-    isActive: { type: Boolean, default: false },
-    roleRights: {
-      type: Schema.Types.ObjectId,
-      ref: 'roles',
-    },
+    isActive: { type: Boolean, default: true },
+    todos: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'todo',
+      },
+    ],
   },
   { timestamps: true }
 );

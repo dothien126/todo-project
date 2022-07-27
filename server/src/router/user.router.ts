@@ -1,22 +1,25 @@
 import express from 'express';
 const router = express.Router();
+import { middlewareAuth } from '../middleware/decode-jwt-token';
 
-const { rightToAction } = require('../middlewares/decode-jwt-token');
 import UserController from '../controllers/user.controller';
 
 // Create User
 router.post('/user', UserController.createUserHandler);
 
 // Get all Users
-router.get('/user', rightToAction('get-users'), UserController.getAllUsersHandler);
+router.get('/user', middlewareAuth.verifyToken, UserController.getAllUsersHandler);
 
 // Find User
-router.get('/user/:id', UserController.findUserHandler);
+router.get('/user/:id', middlewareAuth.verifyToken, UserController.findUserHandler);
 
-// // Update User
-router.put('/user/:id', rightToAction('update-users'), UserController.updateUserHandler);
+// Update User
+router.put('/user/:id', middlewareAuth.verifyToken, UserController.updateUserHandler);
 
-// // Delete User
-router.delete('/user/:id', rightToAction('delete-users'), UserController.deleteUserHandler);
+// Delete User
+router.delete('/user/:id', middlewareAuth.verifyToken, UserController.deleteUserHandler);
+
+// Get all todo of user
+router.get('/user/todo/:id', middlewareAuth.verifyToken, UserController.getAllTodoOfUserHandler);
 
 export default router;
